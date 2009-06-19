@@ -1,0 +1,16 @@
+SanitizesHtml
+=============
+
+A very simple model-based plugin to remove HTML tags from an attribute.
+Requires Hpricot.
+
+
+Example
+=======
+
+class Page < ActiveRecord::Base
+  sanitizes_html :body, :allowed_tags => [ 'p', 'b', 'i', 'u', 'img' ], :safe_attributes => { 'img' => [ 'alt', 'src' ] }
+end
+
+
+Copyright (c) 2009 Andrew Armenia, released under the MIT license
