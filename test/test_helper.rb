@@ -39,13 +39,17 @@ def build_schema
 
 end
 
-# compute dirname
-fixtures_dir = File.join(File.dirname(__FILE__), 'fixtures')
-
-# why should this need to go here?
-ActiveSupport::TestCase.fixture_path = fixtures_dir
 
 class ActiveSupport::TestCase
+  begin
+    include ActiveRecord::TestFixtures
+  rescue NameError
+    puts "You appear to be using a pre-2.3 version of Rails. No need to include ActiveRecord::TestFixtures..."
+  end
+
+  # compute dirname
+  self.fixture_path = File.join(File.dirname(__FILE__), 'fixtures')
+
   build_schema
 
   self.use_transactional_fixtures = true
